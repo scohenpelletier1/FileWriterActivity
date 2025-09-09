@@ -40,6 +40,12 @@ public class MyFileWriter {
 
     }
 
+    // to string method
+    public String toString() {
+        return "Hello, World!";
+
+    }
+
     public static void main(String[] args) throws IOException {
         String data = "Hello, World!";
         String fileName1 = "example.txt";
