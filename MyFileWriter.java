@@ -30,6 +30,16 @@ public class MyFileWriter {
 
     }
 
+    // Calculate and print the file size using the File class
+    private static void printFileSize(String fileName) {
+        // get the file
+        File file = new File(fileName);
+
+        // print out the length
+        System.out.println(file.length());
+
+    }
+
     public static void main(String[] args) throws IOException {
         String data = "Hello, World!";
         String fileName1 = "example.txt";
@@ -86,6 +96,9 @@ public class MyFileWriter {
         // SEE IF THE SECRET PLAN STUFF WORKS
         secretPassword();
         confidentialPlans();
+
+        printFileSize("example.txt"); // 13
+        printFileSize(".whoNeeds2FA.txt"); // 52
 
     }
     
