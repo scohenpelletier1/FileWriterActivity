@@ -38,9 +38,22 @@ public class MyFileWriter {
     * @throws IOException if an I/O error occurs
     */
     public static String stringify(String filePath) throws IOException {
-        // TODO: Implement this method
+        // get the file
+        BufferedReader file = new BufferedReader(new FileReader(filePath));
+        String contents = "";
+        String line;
+
+        // read through the file
+        while ((line = file.readLine()) != null) {
+            contents += line;
+            
+        }
+
+        // close the buffered reader
+        file.close();
+        
         // Read the file at filePath and return its contents as a String
-        return null;
+        return contents;
     
     }
 
@@ -108,8 +121,9 @@ public class MyFileWriter {
         secretPassword();
         confidentialPlans();
 
-        // printFileSize("example.txt"); // 13
-        // printFileSize(".whoNeeds2FA.txt"); // 52
+        // stringify()
+        System.out.println(stringify("example.txt"));
+        System.out.println(stringify(".whoNeeds2FA.txt"));
 
     }
     
