@@ -30,15 +30,20 @@ public class MyFileWriter {
 
     }
 
-    // Calculate and print the file size using the File class
-    private static void printFileSize(String fileName) {
-        // get the file
-        File file = new File(fileName);
-
-        // print out the length
-        System.out.println(file.length());
-
+    /**
+    * Reads a text file and returns its contents as a string.
+    * 
+    * @param filePath the path to the file
+    * @return the contents of the file as a string
+    * @throws IOException if an I/O error occurs
+    */
+    public static String stringify(String filePath) throws IOException {
+        // TODO: Implement this method
+        // Read the file at filePath and return its contents as a String
+        return null;
+    
     }
+
 
     // to string method
     public String toString() {
@@ -103,8 +108,8 @@ public class MyFileWriter {
         secretPassword();
         confidentialPlans();
 
-        printFileSize("example.txt"); // 13
-        printFileSize(".whoNeeds2FA.txt"); // 52
+        // printFileSize("example.txt"); // 13
+        // printFileSize(".whoNeeds2FA.txt"); // 52
 
     }
     
