@@ -57,10 +57,14 @@ public class MyFileWriter {
     
     }
 
-
     // to string method
     public String toString() {
         return "Hello, World!";
+
+    }
+
+    private static void printTotalFileSize(String... fileNames) {
+        System.out.println("Total size of all files: ...TBD... bytes");
 
     }
 
