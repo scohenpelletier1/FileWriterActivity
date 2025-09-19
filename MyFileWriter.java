@@ -85,7 +85,7 @@ public class MyFileWriter {
             File file = new File(filePath);
 
             if (!file.exists()) {
-                throw new FileNotFoundException("This file " + filePath + "doesn't exist.");
+                throw new FileNotFoundException("This file " + filePath + " doesn't exist.");
 
             }
 
@@ -120,13 +120,13 @@ public class MyFileWriter {
             return hexCode;
 
         } catch (FileNotFoundException e) {
-            return "The file was not found" + e.getMessage();
+            return "The file was not found. " + e.getMessage();
 
         } catch (IOException e) {
-            return "The file could not be read" + e.getMessage();
+            return "The file could not be read. " + e.getMessage();
 
         } catch (NoSuchAlgorithmException e) {
-            return "SHA-256 algorithm not available" + e.getMessage();
+            return "SHA-256 algorithm not available. " + e.getMessage();
 
         }
 

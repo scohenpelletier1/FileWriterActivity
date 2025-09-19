@@ -10,32 +10,34 @@ import java.security.NoSuchAlgorithmException;
 
 public class MyFileWriterTester {
     // Tester methods
-    public static void testHashFileEmptyFiles() {
-    
+    public static String testHashFileEmptyFiles() throws IOException {
+        BufferedWriter emptyFile = new BufferedWriter(new FileWriter("emptyFile.txt"));
 
+        // close bufferedWriter
+        emptyFile.close();
 
+        // test the hash method
+        return MyFileWriter.hashFile("emptyFile.txt");
 
     }
 
+    public static String testHashFileLargeFiles(String filePath) {
+        // test the hash method
+        return MyFileWriter.hashFile(filePath);
+    
+    }
 
-    public static void testHashFileLargeFiles() {
-    
-    
+    public static String testHashFileSpecialChars(String filePath) {
+        // test the hash method
+        return MyFileWriter.hashFile(filePath);
     
     }
 
 
-    public static void testHashFileSpecialChars() {
-    
-    
-    
-    }
 
-
-
-    public static void testHashFileNonExistent() {
-    
-    
+    public static String testHashFileNonExistent(String filePath) {
+        // test the hash method
+        return MyFileWriter.hashFile(filePath);
     
     }
 
@@ -96,14 +98,38 @@ public class MyFileWriterTester {
         // SEE IF THE SECRET PLAN STUFF WORKS
         MyFileWriter.secretPassword();
         MyFileWriter.confidentialPlans();
+        System.out.println();
 
         // stringify()
         System.out.println(MyFileWriter.stringify("example.txt"));
         System.out.println(MyFileWriter.stringify(".whoNeeds2FA.txt"));
+        System.out.println();
 
         // hashFile
         System.out.println("==hashFile()==");
         System.out.println(MyFileWriter.hashFile(fileName1)); // dffd6021bb2bd5b0af676290809ec3a53191dd81c7f70a4b28688a362182986f
+        System.out.println();
+
+        System.out.println("testHashFileEmptyFiles(): ");
+
+        System.out.println(testHashFileEmptyFiles()); // should print out: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        System.out.println(testHashFileEmptyFiles()); // should print same as above
+        System.out.println();
+
+        System.out.println("testHashFileLargeFiles(): ");
+        System.out.println(testHashFileLargeFiles("theGreatGatsby.txt")); // no error
+        System.out.println(testHashFileLargeFiles("theFellowshipOfTheRing.txt")); // no error
+        System.out.println();
+
+        System.out.println("testHashFileSpecialChars(): ");
+        System.out.println(testHashFileSpecialChars("nonAscii1.txt")); // no error
+        System.out.println(testHashFileSpecialChars("nonAscii2.txt")); // no error
+        System.out.println();
+
+        System.out.println("testHashFileNonExistent(): ");
+        System.out.println(testHashFileNonExistent("HelloWorld.txt")); // FileNotFoundException
+        System.out.println(testHashFileNonExistent("idkWhatToPutHere.txt")); // FileNotFoundException
+        System.out.println();
 
     }
 
