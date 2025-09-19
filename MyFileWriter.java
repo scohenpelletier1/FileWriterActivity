@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.file.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.nio.charset.StandardCharsets;
 
 public class MyFileWriter {
@@ -62,6 +64,7 @@ public class MyFileWriter {
         return "Hello, World!";
 
     }
+    
     private static void printFileSize(String... fileNames) {
         long totalSize = 0;
         for (String fileName : fileNames) {
@@ -74,66 +77,58 @@ public class MyFileWriter {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        String data = "Hello, World!";
-        String fileName1 = "example.txt";
-        String fileName2 = "example2.txt";
-        String fileName3 = "example3.txt";
-        String fileName4 = "example4.txt";
-        String fileName5 = "example5.txt";
-
-        // 1. Using FileWriter
-        try (FileWriter writer = new FileWriter(fileName1)) {
-            writer.write(data);
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-        // 2. Using BufferedWriter
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName2))) {
-            bufferedWriter.write(data);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-        // 3. Using FileOutputStream
-        try (FileOutputStream outputStream = new FileOutputStream(fileName3)) {
-            outputStream.write(data.getBytes());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-        // 4. Using BufferedOutputStream
-        try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(fileName4))) {
-            bufferedOutputStream.write(data.getBytes());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-        // 5. Using Files (java.nio.file)
+    public static String hashFile(String filePath) {
+        // catch exceptions using try catch
         try {
-            Files.write(Paths.get(fileName5), data.getBytes(StandardCharsets.UTF_8));
+
+            // check to see if the file exists
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                throw new FileNotFoundException("This file " + filePath + "doesn't exist.");
+
+            }
+
+            // read the file
+            String fileContents = "";
+
+            // catch exceptions using try catch
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    fileContents += line;
+
+                }
+
+            }
+
+            // ceate sha-256 digest
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // get the hash by counting bytes
+            byte[] hashBytes = digest.digest(fileContents.getBytes(StandardCharsets.UTF_8));
+
+            // convert hash to hex string
+            String hexCode = "";
+
+            for (int i = 0; i < hashBytes.length; i++) {
+                hexCode += String.format("%02x", hashBytes[i]);
+            
+            }
+
+            return hexCode;
+
+        } catch (FileNotFoundException e) {
+            return "The file was not found" + e.getMessage();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            return "The file could not be read" + e.getMessage();
+
+        } catch (NoSuchAlgorithmException e) {
+            return "SHA-256 algorithm not available" + e.getMessage();
 
         }
-
-        // SEE IF THE SECRET PLAN STUFF WORKS
-        secretPassword();
-        confidentialPlans();
-
-        // stringify()
-        System.out.println(stringify("example.txt"));
-        System.out.println(stringify(".whoNeeds2FA.txt"));
 
     }
     
